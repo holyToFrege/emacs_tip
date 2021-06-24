@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-06-24 Thu 12:25 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Org-protocol 설정하기</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Holy Frege" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Org-protocol 설정하기
+<br />
+<span class="subtitle">Holy Frege - June 2021</span>
+</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgfdb897d">Goal</a></li>
+<li><a href="#org99120f4">process</a>
+<ul>
+<li><a href="#orgad9a34f">[web browser]</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfdb897d" class="outline-2">
+<h2 id="orgfdb897d">Goal</h2>
+<div class="outline-text-2" id="text-orgfdb897d">
+<p>
+web surfing중에 필요한 정보를 제공하는 web page 정보(url,title, drag내용)을  emacs의 org buffer로 전송한다. 이렇게 하기 위해 org-protocol을 사용한다.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org99120f4" class="outline-2">
+<h2 id="org99120f4">process</h2>
+<div class="outline-text-2" id="text-org99120f4">
+<p>
+web browser, osx, emacs로 data가 전송되야 한다.
+</p>
+</div>
+
+<div id="outline-container-orgad9a34f" class="outline-3">
+<h3 id="orgad9a34f">[web browser]</h3>
+<div class="outline-text-3" id="text-orgad9a34f">
+<p>
+webpage의 정보를 얻기 위해서 bookmark를 사용한다. bookmark는 name,url로 되어 있는데, url을 입력하는 곳에서 javascript를 사용할 수 있다. javascript를 사용해서 현재 webpage의 url, title, selection영역등을 가져올 수 있다.
+</p>
+
+<div id="org34e2070" class="figure">
+<p><img src="./img/bookmark.png" alt="bookmark.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 1: </span>bookmark</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
