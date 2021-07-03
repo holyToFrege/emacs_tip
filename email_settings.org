@@ -1,0 +1,65 @@
+#+TITLE:  emacs email settings
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* email  가져오기 test 및 설정
+bootstrap.sh 을 실행한 후 바로 email을 사용할 수 있을 꺼 같아서 M-x
+mu4e를 실행했으나 다음과 같은 에러가 생겼다. 
+#+begin_quote
+[mu4e] Switched context to public_mail(gmail)
+error in process filter: mu4e-error-handler: Error 1: cannot open database @ /Users/holy/.cache/mu/xapian; already running? if not, please try 'mu init '
+error in process filter: Error 1: cannot open database @ /Users/holy/.cache/mu/xapian; already running? if not, please try 'mu init '
+error in process sentinel: mu4e~proc-sentinel: Mu server process ended with exit code 1
+error in process sentinel: Mu server process ended with exit code 1 
+ #+end_quote
+
+이것을 해결하기 위해서 home폴더에 Mail 폴더를 만든다.  imap을 통해
+ email을 가져와 저장할 폴더들이다.
+ #+begin_quote
+ mkdir ~/Mail/Fastmail/
+ mkdir ~/Mail/Gmail/
+  #+end_quote
+이제 imap을 통해 mail을 가져오자.
+ #+begin_quote
+ mbsync -a 를 실행하면 다음과 같은 에러가 나오는데, 이것은 imap접속 시
+ 사용되는 password파일을 dropbox에서 copy가 되지 않았기 때문에 생기는
+ 문제다. bootstrap.sh에서 cp하지만, 이게 제대로 안된 것이다.  다시
+ 복사한다.
+ #+end_quote
+#+CAPTION: email settings
+#+NAME: email settings
+#+attr_html: :width 400px
+#+attr_latex: :width 100px
+[[./img/email.png]]
+
+다시 mbsync -a 를 했을 때 다음과 같은 에러가 나올 수 있다.
+#+CAPTION: error
+#+NAME: error
+#+attr_html: :width 400px
+#+attr_latex: :width 100px
+[[./img/mbsync_error.png]]
+
+이것은 먼저 web login이 필요하다는 것이다. gmail에 접속해서
+holy.frege로 login을 한후에 다시 mbsync -a를 한다. ~/Mail 폴더에 있는
+Fastmail과 Gmail폴더안에 sub folder들이 생긴것을 확인할 수 있다.  이제
+mail 가져오기 작업은 끝이 났다.
+
+ -  mu index
+   가져온 mail에 대한 indexing작업을 한다. 이것은 mu4e를 사용할때 검색을 용이하게 한다.
+ #+CAPTION: mu4e indexing
+#+NAME: indexing
+#+attr_html: :width 400px
+#+attr_latex: :width 100px
+[[./img/muindex.png]]
+
+* email 보내기
+M-x mu4e를 한 후에 Compose를 하고 작성해서 보내면 문제없이 되는 것을 확인할 수 있다.
+
+
