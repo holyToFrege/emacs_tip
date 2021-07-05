@@ -51,8 +51,9 @@ holy.frege로 login을 한후에 다시 mbsync -a를 한다. ~/Mail 폴더에 �
 Fastmail과 Gmail폴더안에 sub folder들이 생긴것을 확인할 수 있다.  이제
 mail 가져오기 작업은 끝이 났다.
 
- -  mu index
-   가져온 mail에 대한 indexing작업을 한다. 이것은 mu4e를 사용할때 검색을 용이하게 한다.
+ -  mu index 가져온 mail에 대한 indexing작업을 한다. 이것은 mu4e를
+   사용할때 검색을 용이하게 한다.
+   
  #+CAPTION: mu4e indexing
 #+NAME: indexing
 #+attr_html: :width 400px
@@ -60,6 +61,24 @@ mail 가져오기 작업은 끝이 났다.
 [[./img/muindex.png]]
 
 * email 보내기
-M-x mu4e를 한 후에 Compose를 하고 작성해서 보내면 문제없이 되는 것을 확인할 수 있다.
-
+M-x mu4e를 한 후에 fastmail에서 Compose를 하고 작성해서 보내면
+문제없이 되는 것을 확인할 수 있다. Gmail도 작성해 본다.  에러가
+나온다.
+ #+begin_quote
+smtpmail-send-it: Sending failed: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials u13sm5752430pfi.54 - gsmtp in response to AUTH
+ #+end_quote
+인증관련 에러가 나온다.  imap(메일보내기)의 경우는
+.oh-no-insecure-password파일에 login id,pw를 처리했다면,
+smtp(메일보내기)의 경우 .authinfo.gpg에 login id와 pw가 저장되어 있다.
+확장자가 gpg인 파일들은 gpg로 encrypt되어 있다. 즉 새파일을 열어서
+작성후 gpg확장자를 갖는 파일로 저장하면 자동으로 encrypt가 되는
+것이다. 우선 확인해야 할 것이 있다.
+ #+begin_quote
+ gpg --list-keys
+ #+end_quote
+ smtp 키가 있는지 확인하자. 왜냐면, authinfo.gpg파일은 smtp key로
+ 암호화했기 때문이다. smtp로 메일을 보낼때 smtp key의 passphrase를
+ 입력해야 decrypt된다.
+ 
 

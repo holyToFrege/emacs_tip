@@ -1,0 +1,108 @@
+
+#+TITLE: Mu4e 사용법
+#+AUTHOR: Holy Frege
+
+* mu4e Mail 사용법
+** org-mime에 관해
+mu4e에서 email을 작성한다. mu4e는 plain text만 지원하기 때문에 link,
+bold,italic,inline image와 같은 기능을 이용할 수 없다. 이 기능들은
+html email에서만 지원한다. 그렇다고 하면 emacs에선 plain text로만
+email을 보내야 하는걸까? 아니면 plain text에서 html tag 를 기술하면서
+email을 작성해야 할까? 그런 emacs에선 org mode라는게 있다. org mode로
+글을 쓰고 이것을 htmlize화 하면, html 형태로 변환할 수 있다는 것을
+이용한다. org-mime이라는 package를 이용해서 org로 작성한 글들은 모두
+html형태로 바꿀 수 있기 때문이다. org를 html로 바꾸고 이를 mail로 보내는 것을 할 수 있는데, 2가지가 있다.
+1) org mode에서 작성한 후 email로 보내기
+   - org mode로 작성된 buffer 전체를 보내기
+      #+begin_quote
+      M-x org-mime-org-buffer-htmlize(C-c M-o)
+      #+end_quote
+
+   - org mode 작성된 글 중 하나의 header만 보내기
+      #+begin_quote
+      M-x org-mime-org-subtree-htmlize(C-c M-s)
+      #+end_quote
+
+2) mu4e에서 org로 작성한 후 email 보내기
+    #+begin_quote
+1) mu4e로 들어가 Compose로 들어간다.
+2) org형식으로 글을 쓴다.
+3) M-x org-mime-htmlize를 실행한다. (org->html)
+3-1) M-x org-mime-edit-mail-in-org-mode에서 org를 작성한다. 그리고 M-x org-mime-htmlize를 실행한다.
+4) C-c C-c로 메일을 보낸다.
+    #+end_quote
+
+   - *문제점*\\
+     매번 org로 작성된 메일을 보낼때, M-x org-mime-htmlize를
+     해야하는건 번거롭다. 메일을 전송하기 위해 C-c C-c를 누를때 hook을
+     걸어서 자동으로 실행하게 할 수 있다.
+      #+begin_quote
+            (add-hook 'message-send-hook 'org-mime-htmlize) 
+      #+end_quote
+    하지만, 이렇게 하면, org mode로 작성된 글에서
+     org-mime-org-buffer-htmlize나 org-mime-subtree-htmlize를 할때
+     문제가 생긴다. 그래서 적용하지 않는다.
+      
+
+** mu4e 기본 사용법
+ - new mail 보내기
+ #+begin_quote
+1) mail list에서 C를 눌러 mail 작성창으로 간다.
+2) M-x org-mine-edit-mail-in-org-mode(C-c M-e)를 사용해서 org mode로 작성한다.
+3)파일 첨부를 한다. (C-c C-a: File attachment)
+4) 보내거나 삭제하거나 draft로 보낸다.
+   C-c C-c - Send the message
+   C-c C-k - Discard the message
+   C-c C-d - Save the message in your Drafts folder
+
+ #+end_quote
+
+ - Reply mail 작성
+    #+begin_quote
+1) mail list에서 maiil 선택후 R을 눌러 mail 작성창으로 간다. or  메일을 읽고  R을 누른다.
+2) M-x org-mine-edit-mail-in-org-mode(C-c M-e)를 사용해서 org mode로 작성한다.
+3)파일 첨부를 한다. (C-c C-a: File attachment)
+4) 보내거나 삭제하거나 draft로 보낸다.
+   C-c C-c - Send the message
+   C-c C-k - Discard the message
+   C-c C-d - Save the message in your Drafts folder
+    #+end_quote
+
+ - forwarding 방법
+    #+begin_quote
+1) mail list에서 maiil 선택후 F를 눌러 mail 작성창으로 간다. or  메일을 읽고  F를 누른다.
+2) M-x org-mine-edit-mail-in-org-mode(C-c M-e)를 사용해서 org mode로 작성한다.
+3)파일 첨부를 한다. (C-c C-a: File attachment)
+4) 보내거나 삭제하거나 draft로 보낸다.
+   C-c C-c - Send the message
+   C-c C-k - Discard the message
+   C-c C-d - Save the message in your Drafts folder
+    #+end_quote
+
+** Email workflow
+ - GTD Process를 따른다.
+
+ - todo list가 저장되는 폴더는 다음과 같다.
+ #+begin_quote
+ ~/org/2021/Mail.org
+ #+end_quote
+
+ - Collection\\
+   일과를 시작할때, email을 정리한다.  mu4e에서 bu를 누르면 mail 제목
+   목록이 나온다.  여기서 지워야 할것은 지운다. 메일 제목을 보고
+   확실히해야 한다고 생각되는 메일은 M-x org-capture로
+   ~/org/2021/Mail.org로 이동 시킨다. 중요한 메일인지 확신이 들지 않을
+   때는 읽어본다. 특정 내용이 중요하다고 한다면, 특정 내용을선택한 후
+   M-x org-caputre를실행해서 이동 시킨다. Deadline이 필요한 mail의
+   경우는 deadline을 기술한다. 혹은 단순하게 아래와 같이 수행해도 된다.
+    #+begin_quote
+1) mu4e를 실행한다. (M-x mu4e)
+2) bu를 누른다.
+3) 메일 제목을 보고 delete하거나, todo list로 넣어야 할지 결정한다.
+4) todo list로 결정했다면,  C-c a 를 눌러서 follow할지 read later할지를 즉시 수행한다.
+    #+end_quote
+
+ - 
+
+
+
