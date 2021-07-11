@@ -1,0 +1,73 @@
+#+TITLE: Org-capture
+#+AUTHOR: Holy Frege
+* org 문서를 작성하는 방법
+** 일반적 방법
+*** org 파일을 만든다. 
+*** headline을 만들고 글을 작성한다.
+** org-capture 방법
+*** 일반적 방법을 자동화 한다.
+       작성할 파일이 이미 정해져 있을 경우, 편리하다.  org-capture에는 파일이름과 headline과 content에 대한 template이 있기 때문에 빠르게 글을 쓸 수 있다. 즉 글을 쓸때 emacs를 사용하고 있고, 갑자기 떠오르는 idea가 있거나 email을 보고 저장해야할 곳이 있거나, 책을 읽고 중요한 내용이 있을때 메모할 때 M-x org-capture를 실행한다. 메뉴를 선택하고 글을 쓰면 이미 정해진 파일에 글을 쓸 수 있다. 
+** org-capture 사용하기
+*** org-capture를 사용하기 위한 준비
+**** org-capture와 연동할 파일 설정
+         - org/2021/mail.org => email에서 해야할것이나 저장해야 할것을 org-capture를 사용해서 mail.org로 옮긴다.
+         - org/2021/collection.org => 갑자기 떠오르는 생각이나, 책에서 읽은 내용, 혹은 해야하는 일들을 org-capture를 사용해서 collection.org로 옮긴다.
+         - org/2021/habits.org => 늘 해야하는 일들을 org-capture를 사용해서 habits.org에 적어 놓는다.
+**** org-capture를 실행하면 보이는 menu를 org-capture-template으로 만든다.
+         org-capture를 실행하면 아래와 같은 메뉴가 보인다. 이것을 org-capture-template으로 만든다.
+        #+CAPTION: org-capture
+        #+NAME: org-capture
+        #+attr_html: :width 400px
+        #+attr_latex: :width 100px
+        [[./img/orgcapture_menu.png]]
+        - menu와 template을 작성해보자.
+        #+begin_quote
+        (setq org-capture-templates
+        (quote (("t" "today Todo" entry (file "~/org/2021/collection.org")
+                        "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                        ("m" "Mail Related Todo Work" entry (file "~/org/2021/collection.org")
+                        "* TODO %?\n%T\n")
+                        ("w" "Web Related Work" entry (file+headline "~/org/2021/collection.org" "Web Captured")
+                        "* %? url is  %:link \n title is %:description \nCaptured On: %U\n body is %i")
+                        ("a" "Appointment" entry (file+headline 
+                         "~/org/2021/collection.org" "Calendar") 
+                         "* APPT %^{Description} %^g  %?  Added: %U") 
+                         ("n" "Notes" entry (file+datetree 
+                          "~/org/2021/collection.org")
+                          "* %^{Description} %^g %? Added: %U")
+                         ("k" "Todo" entry (file+headline "~/org/2021/test.org" "Tasks")
+                          "* TODO %?\n  %i\n  %a")
+                          ("b" "Buy" item (file+olp "~/org/2021/test.org" "Stuff to Buy" "House")
+                          "")
+                          ("i" "sudden rising Idea" entry (file+datetree "~/org/2021/collection.org")
+                          "* %?\n%T\n" :clock-in t :clock-resume t)
+                          ("h" "Habits(always daily do)" entry (file+datetree "~/org/2021/habits.org")
+                          "* %?\n%T\n" :clock-in t :clock-resume t))))
+     #+end_quote
+**** capture-template 형식
+        - template은 특정형식을 가지고 있다. 3가지로 되어 있다. key part, target part, template part.
+***** [key part]
+        - m,w,L,i,h..등은 menu에서 선택할 key다.
+        - 그 다음 문자열은 menu description이다.
+          #+CAPTION: 
+          #+NAME: 
+          #+attr_html: :width 400px
+          #+attr_latex: :width 100px
+          [[./img/keys.png]]
+
+        - entry는 headline을 만들겠다는 뜻이다.  entry말고도 다른 선택(checkbox,list...)도 가능하다. 그러나 일반적으로 headline을 만들면 되기 때문에 그냥 entry를 쓰자.
+        - entry, item... (template의 종류)
+          만들 template을 entry로 하면 heading이 되고, item을  하면 list가 된다.  예를 들어서, 위에서 k,b key를 보자. k는 entry고 b는 item이다.
+          
+***** [target part]
+        - 
+***** [template part]
+        - 그 다음 string은 실제 쓰여질 문자열을 의미한다.
+          - %?: 커서의 위치를 정한다.
+          - %^{description}, %^{heading}, %^{activity}: minibuffer에서 description:, heading: , activity라는 prompt가 나오고 여기에 쓰는 문자열이 %^{} 으로 쓰여진 것에 replace된다.
+          - %^g: tag: 라는 prompt가 나오고 여기에 쓰는 문자열이 tag가 된다.
+          - %U: 날짜가 입력된다.
+          - 
+          
+          
+

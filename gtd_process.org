@@ -1,0 +1,21 @@
+#+TITLE: GTD Process
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* collection (해야 할일 모으기)
+ - 직접기입
+ - mu4e에서 mail분류(해야할것, 지울것 => org/2021/Mail.org)
+#+begin_quote
+     (setq org-agenda-files
+          '("~/org/2021/tasks.org"
+            "~/org/2021/habits.org"
+            "~/org/2021/Mail.org"
+         "~/org/2021/birthdays.org"))
+ #+end_quote
