@@ -1,0 +1,15 @@
+#+TITLE: emacs_shell
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2  ^:nil
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* emacs shell
+#+begin_note
+emacs shell에는 3가지가 있다. term, eshell, ansi-term이다. term과 ansi-term은 system에 있는 native shell을 emacs로 불러와서 쓴다는 느낌이 크다. eshell이  elisp을 사용할 수 있어서 좋지만, native shell과는 환경설정이 다르다. term은 native shell과 동일하지만 back space키가 작동하지 않는다. ansi-term은 그나만 native shell과 비슷한거 같아서 ansi-term을 사용하기로 한다.
+#+end_note

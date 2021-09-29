@@ -1,0 +1,45 @@
+#+TITLE: ECB 설치(neotree 대체)
+#+AUTHOR: Hoyoul Park
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* CEDET를 다운받아 설치한다.
+** download
+[[https://sourceforge.net/projects/cedet/][download]]
+#+CAPTION: cedet
+#+NAME: cedet
+#+attr_html: :width 800px
+#+attr_latex: :width 100px
+[[./img/cedet.png]]
+** unpack ~/.emacs.d/
+** compile package
+#+begin_note
+emacs -Q -nw -l cedet-build.el -f cedet-build -f save-buffers-kill-terminal
+or  emacs -Q -l cedet-build.el -f cedet-build
+#+end_note
+#+CAPTION: cedet2
+#+NAME: 
+#+attr_html: :width 800px
+#+attr_latex: :width 100px
+[[./img/cedet2.png]]
+여기서 step6에서 멈추고, deprecated cl이라는 메시지가 나오는데 우선 그냥 진행했다.
+* emacs settings
+cedet을 설치하고 emacs를 세팅한다.
+#+begin_note
+(load-file "~/cedet-1.0pre6/common/cedet.el")
+(global-ede-mode 1)                      ; Enable the Project management system
+(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
+(global-srecode-minor-mode 1)            ; Enable template insertion menu
+#+end_note
+* ecb download
+** ecb 
+* ecb보다 neotree
+#+begin_note
+ecb로 에러가 계속 발생한다. neotree라는 좋은 게 있어서 대체한다.
+#+end_note
