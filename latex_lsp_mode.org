@@ -1,0 +1,46 @@
+#+TITLE: Latex lsp mode
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2  ^:nil
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* Latex for lsp
+** server
+#+begin_note
+cargo가 필요하다. cargo는 rust의 패키지 관리자다. 아래처럼 실행하면 rust와 cargo를 설치할 수 있다. 설치한 상태에서 latex-lsp인 texlab을 설치한다.
+#+end_note
+#+begin_tip
+curl https://sh.rustup.rs -sSf | sh -s
+
+cargo install --locked --git https://github.com/latex-lsp/texlab.git
+#+end_tip
+#+begin_note
+- texlab을 설치한 이후에 shell에 경로를 추가해야 한다.
+export PATH=$PATH:/Users/holy/.cargo/bin
+#+end_note
+** client
+#+begin_note
+- texlab의 위치를 기술해야 한다.
+- tex파일(buffer)을 open했을때, latex-mode로 진입한다면, hook을 걸어둔다. 그런데, hook이 걸리지 않는다. 그래서 tex버퍼를 열고 M-x lsp로 수동으로 시작한다.
+#+end_note
+ #+begin_tip
+    (use-package lsp-latex
+   :config
+   (setq lsp-latex-texlab-executable "/Users/holy/.cargo/bin/")
+   (with-eval-after-load "tex-mode"
+     (add-hook 'tex-mode-hook 'lsp-deferred)
+     (add-hook 'latex-mode-hook 'lsp-deferred))
+
+   ;; For YaTeX
+   (with-eval-after-load "yatex"
+     (add-hook 'yatex-mode-hook 'lsp-deferred))
+
+   ;; For bibtex
+   (with-eval-after-load "bibtex"
+     (add-hook 'bibtex-mode-hook 'lsp-deferred)))
+ #+end_tip

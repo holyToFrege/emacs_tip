@@ -1,0 +1,28 @@
+#+TITLE: ruby_lsp_mode
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2  ^:nil
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+
+* rbenv 설정
+#+begin_note
+우선 shell에서 rbenv가 제대로 동작하는지 확인할 필요가 있다. shell에서 rbenv versions로 사용 가능한 version을 확인하고 rbenv global version으로 version을 정하고 ruby --version으로 해당 version으로 change되는지 확인해야 한다. 안될 경우, PATH에 $HOME/.rbenv/shims가  포함되었는지 여부를 확인한다. 확인하는 방법은 shell에서 env | grep $home/.rbenv/shims를 하면 된다. 만일 포함되지 않았다면 zsh.rc에 포함시켜야 제대로 동작된다.
+#+end_note
+* Ruby LSP mode
+** server
+#+begin_note
+server로는 solargraph라는 것을 사용한다. gem으로 설치한다.
+#+end_note
+ #+begin_tip
+ gem install solargraph
+ #+end_tip
+** client
+#+begin_note
+ruby에서 client프로그램은 따로 존재하지 않는것 같다. melpa에서 제공하지 않는다. eglot라는 범용적인 도구를 사용하는 듯 하다. eglot는 
+#+end_note

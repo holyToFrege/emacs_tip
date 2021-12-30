@@ -1,0 +1,47 @@
+#+TITLE: Latex Settings
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2  ^:nil
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* Latex에 대해서
+#+begin_note
+Emacs에서 tex라는 확장자를 갖는 파일을 만들고 편집한 후, tex engine(xetex, pdftex, luatex)를 실행하면 pdf,dvi같은 파일이 생성된다. 이 모든것을 latex라고 통칭해도 큰 문제는 없어 보인다.
+#+end_note
+* Emacs에서 latex란(Auctex)
+#+begin_note
+AUCTEX란 용어를 어디선가 들어봤을것이다. AUCTeX는 tex파일을 emacs에서 편집하기 쉽게 해주는 emacs package라고 보면된다. emacs는 auctex라는 package를 설치하고 설정해서 편하게 작업할 수 있다고 한다. AUCTeX는 tex engine이 아니다. 그냥 emacs package에 불과하다. 엄청 많은 shortcut들을 제공하는 package!
+- 참조 사이트
+- https://kevinlanguasco.wordpress.com/2019/04/29/latex-editing-with-emacs-on-manjaro/
+- https://tex.stackexchange.com/questions/20843/useful-shortcuts-or-key-bindings-or-predefined-commands-for-emacsauctex/21026#21026 
+#+end_note
+* AUCTeX
+- 기본 설정
+#+begin_note
+(setq-default TeX-master nil)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+#+end_note
+* AUCTeX 기본 사용법
+- 컴파일 관련
+#+begin_note
+- C-c C-c : 컴파일
+- C-c C-r : 영역 컴파일
+- C-c C-k : 컴파일 중지
+- C-c C-v : 출력물 보기
+#+end_note
+- 명령 관련
+  #+begin_note
+  - C-c C-s: 장,절, chapter같은 단축키
+  - C-c C-e: environment
+  - C-c C-j: item tag
+  #+end_note
+- 수학관련
+  #+begin_note
+  C-c ~: math mode로 enable.
+  #+end_note

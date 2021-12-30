@@ -1,0 +1,26 @@
+#+TITLE: typescript_lsp_mode
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2  ^:nil
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* typescript lsp mode
+#+begin_note
+[[file:LSP_settings.org][LSP]]에 보면, LSP의 server와 client를 설정하는 법이 나와 있다. server는 M-x lsp-install-server로 설치하던지, system에 직접 설치할 수도 있다. client는 lsp-mode와 programming mode 2개를 설정해야 하는데, lsp-mode는 이미 설정되어 있다. 여기서는 server와 programming mode만 알아본다.
+#+end_note
+* typescript server
+- https://emacs-lsp.github.io/lsp-mode/page/lsp-prolog/  여기에 보면, lsp-typescript를 설치하는 방법이 있다. 3가지가 있는데, recommended하는 방식으로 설치하면 된다.
+* typescript client
+- 아래 처럼 .ts파일을 열면, lsp-deferred를 호출해서 lsp-client가 된다.
+#+begin_note
+  (use-package typescript-mode
+    :mode "\\.ts\\'"
+    :hook (typescript-mode . lsp-deferred)
+    :config
+    (setq typescript-indent-level 2))
+#+end_note

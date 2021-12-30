@@ -1,0 +1,86 @@
+#+TITLE: Prolog settings
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2  ^:nil
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* Prolog settings
+** Local prolog(SWI Prolog) 설치 및 실행
+- 설치
+  #+begin_note
+- brew install swi-prolog [ terminal] 
+- https://www.swi-prolog.org/download/stable [UI]  
+  #+end_note
+- 실행
+  #+begin_note
+>  swipl (터미널)
+  #+end_note
+- 종료
+  #+begin_note
+  Ctrl-D
+  #+end_note  
+** emacs연동
+#+begin_note
+compile: emacs에서 buffer에서 .pl 파일을 열고, prolog programming을 하는 방식이다.
+우선 prolog.el을 다운 받는다.
+- prolog elisp파일을 다운 받는다.(https://bruda.ca/emacs/prolog_mode_for_emacs)
+- .emacs.d/elpa에 넣는다.
+- emacs.org설정파일에 다음과 같이 설정한다.
+#+end_note
+
+#+begin_verse
+(load "~/.emacs.d/elpa/prolog.el")
+ #+end_verse
+ 
+ - pl확장자 파일을 prolog mode로 적용하기 위해서 다음과 같이 설정한다.
+     #+begin_note
+     (add-to-list 'auto-mode-alist '("\\.pl$" . prolog-mode))
+    #+end_note
+- 위와 같이 설정하면, pl확장자 파일에서 syntax highlight가 되는 것을 볼 수 있다. 예를 들어보자.
+  #+begin_note
+temp.pl이라는 파일을 buffer에서 열고,   pred(X) :- 만 쳐보자. syntax highliting이 적용되는 것을 볼 수 있다.
+  #+end_note
+- indentation 처리
+  #+begin_note
+     (setq prolog-electric-if-then-else-flag t)를 추가하면 indentation도 하는 것을 볼 수 있다. 
+  #+end_note
+
+- 단축키 처리 (shortcuts)
+  #+begin_note
+  2개의 shortcuts을 만든다. 첫번째로 library를 import를 많이 하는데, use_module()를 사용한다.
+  이것을 shortcut으로 단순화 한다. 두번째로 주석을 자주 사용하는데, 이것도 shortcut으로 만든다.
+  첫번째는  C-c l, 두번째는 C-c q로 한다.
+    #+end_note
+  - library shortcut
+#+begin_note
+ (global-set-key (kbd "C-c l")
+                (lambda ()
+                (interactive)
+                (insert ":- use_module(library()).")
+                     (forward-char -3)))
+
+#+end_note
+  - comment 주석
+    #+begin_note
+    (defun prolog-insert-comment-block ()
+      (interactive)
+      (let ((dashes "-"))
+        (dotimes (_ 36) (setq dashes (concat "- " dashes)))
+        (insert (format "/* %s\n\n%s */" dashes dashes))
+        (forward-line -1)
+        (indent-for-tab-command)))
+    (global-set-key (kbd "C-c q") 'prolog-insert-comment-block)
+
+    #+end_note
+ 
+- edi prolog (interactive prolog)
+  #+begin_note
+  interactive한 prolog를 emacs에서 실행하기 위해서는 edi prolog를 설치해야 한다.
+  elpa에 ediprolog가 있다. use-package로 설치하고 설정하자.
+  #+end_note
+  

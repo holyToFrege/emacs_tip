@@ -1,0 +1,36 @@
+#+TITLE: Python LSP mode
+#+AUTHOR: Holy Frege
+#+DESCRIPTION: Org-HTML export made simple.
+#+KEYWORDS:  org-mode, export, html, theme, style, css, js, bigblow
+#+LANGUAGE:  en
+#+OPTIONS:   H:4 toc:t num:2  ^:nil
+#+MACRO: color @@html:<font color=></font>@@
+#+PROPERTY:  header-args :padline no
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+LATEX_HEADER: \usepackage{kotex}
+#+latex_header: \hypersetup{colorlinks=true}
+* Python LSP mode server
+#+begin_note
+내가 설정한 것은 M-x lsp-install-server 에서 mspyls를 설치했다.
+#+end_note
+* python LSP client
+- client는 typescript와 비슷하게 lsp-deferred를 호출했다.
+#+begin_tip
+(use-package lsp-python-ms
+ :init (setq lsp-python-ms-auto-install-server t)
+ :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp-deferred))))  
+#+end_tip
+* python 실행 방법
+#+begin_note
+1) buffer 실행 : M-x python-shell-send-buffer(C-c C-c). 결과는 python interpreter창에 보인다.
+2) region 실행: M-x python-shell-send-region(C-c C-r). 결과는 python interpreter창에 보인다.
+3) file 실행: M-x python-shell-send-file
+4) interpreter: C-c C-p (M-x run-python)
+#+end_note
+* python warning
+- unresolved import warning
+#+begin_note
+unresolved import warning이 발생하는 이유는 .pyenv/shims의 경로가 shell에 지정되지 않았기 때문이다. .zshrc를 열어서 PATH를 추가한다.
+#+end_note
